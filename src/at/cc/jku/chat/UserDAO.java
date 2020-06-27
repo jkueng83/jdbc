@@ -13,12 +13,15 @@ public class UserDAO {
     }
 
     public UserVO getUser(String userName) {
+
         UserVO user = null ;//new UserVO(1, userName);
         user = searchUser(userName);
         return user;
+
     }
 
     public UserVO getUser(int id){
+
         UserVO user = null ;//new UserVO(1, userName);
         user = searchUserById(id);
         return user;
@@ -48,7 +51,7 @@ public class UserDAO {
 
             }
 
-
+            connection.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -64,6 +67,7 @@ public class UserDAO {
         UserVO user = null;
 
         try {
+
             Connection connection = DriverManager.getConnection(this.url);
             final String sql = "SELECT `id`, `name` FROM `user` WHERE name = '" + userName + "'";
             Statement statement = connection.createStatement();
@@ -82,13 +86,15 @@ public class UserDAO {
 
             } else {
                 // Diesen User gibte es in der Datenbank noch nicht
-                // neuen user anlegen
+                // neuen user in der Datenbank anlegen
                 user = new UserVO(0 ,userName);
                 addUser(user);
 
                 user = searchUser(userName);
 
             }
+
+            connection.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -116,6 +122,8 @@ public class UserDAO {
             ps.executeUpdate();
 
             System.out.println("Added user to MySQL:"  + user.getName() );
+
+            connection.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();

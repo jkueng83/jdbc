@@ -30,36 +30,41 @@ public class Chat {
 
         this.messageDAO = new MessageDAO();
 
-        scanner = new Scanner(System.in);
-        System.out.println("Please enter your user name: ");
-        String userName = scanner.nextLine();
-
-        //this.notes = new ArrayList<>();
+        String userName = getChatUser();
 
         this.myUser = this.userDAO.getUser(userName);
 
         this.lastPrintedMessageID = 0;
 
-        chatTask();
+
 
     }
 
-    private void chatTask() {
+    private String getChatUser() {
+        scanner = new Scanner(System.in);
+        System.out.println("Please enter your user name: ");
+        return scanner.nextLine();
+    }
+
+
+    public void chatTask() {
 
         updateMessages();
+
+        Timer timer = new Timer();
+        TimerTask update = new TimerTask() {
+            @Override
+            public void run() {
+                updateMessages();
+            }
+        };
+
+
+        timer.scheduleAtFixedRate(update,0,1000);
 
 
         while (true) {
 
-            TimerTask task = new TimerTask() {
-                @Override
-                public void run() {
-                    updateMessages();
-                }
-            };
-
-            Timer timer = new Timer();
-            timer.schedule(task,1000);
 
 
             String inputNote = this.scanner.nextLine();
@@ -68,7 +73,7 @@ public class Chat {
 
             this.messageDAO.addMessage(messageVO);
 
-            updateMessages();
+            //updateMessages();
 
         }
     }

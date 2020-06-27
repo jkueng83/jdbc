@@ -6,13 +6,11 @@ import java.util.List;
 
 public class MessageDAO {
 
-
     private String url;
 
-
     public MessageDAO() {
-        this.url = this.url = "jdbc:mysql://localhost:3306/chat?user=root";
 
+        this.url = this.url = "jdbc:mysql://localhost:3306/chat?user=root";
 
     }
 
@@ -23,10 +21,8 @@ public class MessageDAO {
         try {
             connection = DriverManager.getConnection(this.url);
 
-
             final String sql1 = "INSERT INTO `message` ( `id`, `message` , `senderid` , `receiverID`) " +
                     "VALUES ( ?, ?, ?, ? )";
-            String sql = "INSERT INTO `message`(`id`, `message`, `senderId`, `receiverId`) VALUES (null, 'hallo', '1','1')";
             PreparedStatement ps = connection.prepareStatement(sql1);
 
             ps.setString(1, null);
@@ -42,9 +38,12 @@ public class MessageDAO {
 
             // System.out.println("Added message to MySQL:" + message.getMessage());
 
+            connection.close();
+
         } catch (SQLException ex) {
             ex.printStackTrace();
-            System.out.println("Keine Verbindung zu MySQL!!!");
+            System.err.println("Keine Verbindung zu MySQL!!!");
+
         }
 
     }
@@ -63,6 +62,7 @@ public class MessageDAO {
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {
+
                 int id = rs.getInt("id");
                 String message = rs.getString("message");
                 int senderId = rs.getInt("senderId");
@@ -72,6 +72,8 @@ public class MessageDAO {
                 messages.add(messageVO);
 
             }
+
+            connection.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();

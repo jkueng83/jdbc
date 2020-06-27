@@ -1,6 +1,7 @@
 package at.cc.jku.chat;
 
 public class UserVO {
+
     private int id;
     private String name;
 
@@ -24,6 +25,5 @@ public class UserVO {
     public void setName(String name) {
         this.name = name;
     }
-
 
 }
