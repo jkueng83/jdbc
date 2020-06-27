@@ -18,6 +18,7 @@ public class Main {
 
         Task 2:
         Erweitere das Programm, damit auch neue Notizen eingegeben werden können.
+        --> im Package chat
 
         */
 
