@@ -12,6 +12,12 @@ public class EmployeeVO {
         this.firstName = firstName;
         this.familyName = familyName;
     }
+    public EmployeeVO( int personalNumber, String firstName, String familyName) {
+        this.id = 0;
+        this.personalNumber = personalNumber;
+        this.firstName = firstName;
+        this.familyName = familyName;
+    }
 
     public int getId() {
         return id;
